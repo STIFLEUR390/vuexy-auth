@@ -90,3 +90,40 @@ This package is still very alpha. Few things that are on the todo-list:
 - Improve webinterface (more selection/filtering, behavior of popup after save etc)
 - Seed existing languages (https://github.com/caouecs/Laravel-lang)
 - Suggestions are welcome :)
+
+
+Name: Laravel Extension Pack
+Id: MrChetan.laravel-extension-pack
+Description: A collection of extensions for Laravel development by Chetan Bhalothia
+Version: 1.3.0
+Publisher: Mr Chetan
+VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=MrChetan.laravel-extension-pack
+
+
+
+Name: Laravel Extension Pack
+Id: onecentlin.laravel-extension-pack
+Description: A collection of extensions for Laravel development
+Version: 1.1.0
+Publisher: Winnie Lin
+VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=onecentlin.laravel-extension-pack
+
+
+Name: Vue.js Extension Pack
+Id: mubaidr.vuejs-extension-pack
+Description: Popular VS Code extensions for Vue.js development providing Syntax highlighting, Code format, Code snippets, IntelliSense, Linting support, npm & node tools.
+Version: 1.6.0
+Publisher: Muhammad Ubaid Raza
+VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=mubaidr.vuejs-extension-pack
+
+
+<!-- Authentication -->
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+
+                            <x-dropdown-link :href="route('logout')"
+                                    onclick="event.preventDefault();
+                                                this.closest('form').submit();">
+                                {{ __('Log Out') }}
+                            </x-dropdown-link>
+                        </form>

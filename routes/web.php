@@ -16,3 +16,28 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/register', function () {
+    return view('auth.register');
+});
+
+Route::get('/confirm-password', function () {
+    return view('auth.confirm-password');
+});
+
+Route::get('/forgot-password', function () {
+    return view('auth.forgot-password');
+});
+
+Route::get('/reset-password', function () {
+    return view('auth.reset-password');
+});
+
+Route::get('/two-factor-challenge', function () {
+    return view('auth.two-factor-challenge');
+});
+
+Route::get('/verify-email', function () {
+    return view('auth.verify-email');
+});
+
