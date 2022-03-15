@@ -1,11 +1,11 @@
 <!-- BEGIN: Footer-->
 <footer class="footer footer-static footer-light">
     <p class="clearfix mb-0">
-        <span class="float-md-start d-block d-md-inline-block mt-25">COPYRIGHT &copy; 2021
+        <span class="float-md-start d-block d-md-inline-block mt-25">COPYRIGHT &copy; <script> document.write(new Date().getFullYear()); </script>
             <a class="ms-25" href="{{ url('/') }}" target="_blank">{{ config('app.name', 'Laravel') }}</a>
             <span class="d-none d-sm-inline-block">, All rights Reserved</span>
         </span>
-        <span class="float-md-end d-none d-md-block">{{ env('AUTHOR') }}
+        <span class="float-md-end d-none d-md-block">{{ config('dev-master.author') }}
             <i data-feather="heart"></i>
         </span>
     </p>

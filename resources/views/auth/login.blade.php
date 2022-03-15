@@ -37,10 +37,10 @@
                 <div class="mb-1">
                     <div class="d-flex justify-content-between">
                         <label class="form-label" for="password">@lang('Password')</label><a
-                            href="auth-forgot-password-cover.html"><small>@lang('Forgot Your Password?')</small></a>
+                            href="/forgot-password"><small>@lang('Forgot Your Password?')</small></a>
                     </div>
                     <div class="input-group input-group-merge form-password-toggle">
-                        <input class="form-control form-control-merge" id="password" type="password"
+                        <input class="form-control form-control-merge" id="password" type="password" autocomplete="current-password"
                             name="password" placeholder="@lang("Password")" aria-describedby="password"
                             tabindex="2" /><span class="input-group-text cursor-pointer"><i data-feather="eye"></i></span>
                     </div>
@@ -54,7 +54,7 @@
                 <x-button>@lang('Log in')</x-button>
             </form>
             <p class="text-center mt-2"><span>@lang('New on our platform?')</span><a
-                    href="auth-register-cover.html"><span>&nbsp;@lang('Create an account')</span></a></p>
+                    href="/register"><span>&nbsp;@lang('Create an account')</span></a></p>
             <div class="divider my-2">
                 <div class="divider-text">@lang('or')</div>
             </div>

@@ -20,23 +20,34 @@
         <div class="col-12 col-sm-8 col-md-6 col-lg-12 px-xl-2 mx-auto">
             <h2 class="card-title fw-bold mb-1">@lang('Adventure starts here 🚀')</h2>
             <p class="card-text mb-2">@lang("Make your app management easy and fun!")</p>
-            <form class="auth-register-form mt-2" action="index.html" method="POST">
+
+            <!-- Validation Errors -->
+            <x-auth-validation-errors class="mb-4" :errors="$errors" />
+
+            <form class="auth-register-form mt-2" action="/register" method="POST">
+                @csrf
                 <div class="mb-1">
-                    <label class="form-label" for="register-username">@lang('Username')</label>
-                    <input class="form-control" id="register-username" type="text" name="register-username"
-                        placeholder="johndoe" aria-describedby="register-username" autofocus="" tabindex="1" />
+                    <label class="form-label" for="name">@lang('Name')</label>
+                    <input class="form-control" value="{{ old('name') }}" id="name" type="text" name="name" placeholder="@lang('Name')" aria-describedby="name" autofocus="" tabindex="1" />
                 </div>
                 <div class="mb-1">
-                    <label class="form-label" for="register-email">@lang('Email')</label>
-                    <input class="form-control" id="register-email" type="text" name="register-email"
-                        placeholder="john@example.com" aria-describedby="register-email" tabindex="2" />
+                    <label class="form-label" for="email">@lang('Email')</label>
+                    <input class="form-control" id="email" value="{{ old('email') }}" type="email" name="email" placeholder="@lang('Email')" aria-describedby="email" tabindex="2" />
                 </div>
                 <div class="mb-1">
-                    <label class="form-label" for="register-password">@lang('Password')</label>
+                    <label class="form-label" for="password">@lang('Password')</label>
                     <div class="input-group input-group-merge form-password-toggle">
-                        <input class="form-control form-control-merge" id="register-password" type="password"
-                            name="register-password" placeholder="············" aria-describedby="register-password"
+                        <input class="form-control form-control-merge" id="password" type="password"
+                            name="password" autocomplete="current-password" placeholder="@lang('Password')" aria-describedby="password"
                             tabindex="3" /><span class="input-group-text cursor-pointer"><i data-feather="eye"></i></span>
+                    </div>
+                </div>
+                <div class="mb-1">
+                    <label class="form-label" for="password_confirmation">@lang('Confirm Password')</label>
+                    <div class="input-group input-group-merge form-password-toggle">
+                        <input class="form-control form-control-merge" id="password_confirmation" type="password"
+                            name="password_confirmation" autocomplete="current-password" placeholder="@lang('Confirm Password')" aria-describedby="password_confirmation"
+                            tabindex="4" /><span class="input-group-text cursor-pointer"><i data-feather="eye"></i></span>
                     </div>
                 </div>
                 {{-- <div class="mb-1">
@@ -47,10 +58,10 @@
                                                 href="#">&nbsp;privacy policy & terms</a></label>
                                     </div>
                                 </div> --}}
-                <button class="btn btn-primary w-100" tabindex="5">@lang('Sign up')</button>
+                <x-button>@lang('Sign up')</x-button>
             </form>
             <p class="text-center mt-2"><span>@lang('Already have an account?')</span><a
-                    href="auth-login-cover.html"><span>&nbsp;@lang("Sign in instead")</span></a></p>
+                    href="/login"><span>&nbsp;@lang("Sign in instead")</span></a></p>
             <div class="divider my-2">
                 <div class="divider-text">@lang('or')</div>
             </div>

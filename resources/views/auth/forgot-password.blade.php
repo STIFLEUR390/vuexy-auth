@@ -20,15 +20,23 @@
         <div class="col-12 col-sm-8 col-md-6 col-lg-12 px-xl-2 mx-auto">
             <h2 class="card-title fw-bold mb-1">@lang("Forgot Password? 🔒")</h2>
             <p class="card-text mb-2">@lang("Enter your email and we'll send you instructions to reset your password")</p>
-            <form class="auth-forgot-password-form mt-2" action="auth-reset-password-cover.html" method="POST">
+
+            <!-- Session Status -->
+            <x-auth-session-status class="mb-4" :status="session('status')" />
+
+            <!-- Validation Errors -->
+            <x-auth-validation-errors class="mb-4" :errors="$errors" />
+
+            <form class="auth-forgot-password-form mt-2" action="/forgot-password" method="POST">
+                @csrf
                 <div class="mb-1">
-                    <label class="form-label" for="forgot-password-email">@lang('Email')</label>
-                    <input class="form-control" id="forgot-password-email" type="text" name="forgot-password-email"
-                        placeholder="john@example.com" aria-describedby="forgot-password-email" autofocus="" tabindex="1" />
+                    <label class="form-label" for="email">@lang('Email')</label>
+                    <input class="form-control" id="email" type="email" name="email"
+                        placeholder="@lang('Email')" aria-describedby="email" autofocus="" tabindex="1" />
                 </div>
-                <button class="btn btn-primary w-100" tabindex="2">@lang('Send reset link')</button>
+                <x-button>@lang('Send reset link')</x-button>
             </form>
-            <p class="text-center mt-2"><a href="auth-login-cover.html"><i data-feather="chevron-left"></i>
+            <p class="text-center mt-2"><a href="/login"><i data-feather="chevron-left"></i>
                     @lang('Back to login')</a></p>
         </div>
     </div>
