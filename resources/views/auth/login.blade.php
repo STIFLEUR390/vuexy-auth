@@ -30,25 +30,25 @@
             <form class="auth-login-form mt-2" action="/login" method="POST">
                 @csrf
                 <div class="mb-1">
-                    <label class="form-label" for="login-email">@lang('Email')</label>
-                    <input class="form-control" id="login-email" type="text" name="login-email"
-                        placeholder="john@example.com" aria-describedby="login-email" autofocus="" tabindex="1" />
+                    <label class="form-label" for="email">@lang('Email')</label>
+                    <input class="form-control" id="email" type="text" name="email" value="{{ old('email') }}"
+                        placeholder="@lang('Email')" aria-describedby="email" autofocus="" tabindex="1" />
                 </div>
                 <div class="mb-1">
                     <div class="d-flex justify-content-between">
-                        <label class="form-label" for="login-password">@lang('Password')</label><a
+                        <label class="form-label" for="password">@lang('Password')</label><a
                             href="auth-forgot-password-cover.html"><small>@lang('Forgot Your Password?')</small></a>
                     </div>
                     <div class="input-group input-group-merge form-password-toggle">
-                        <input class="form-control form-control-merge" id="login-password" type="password"
-                            name="login-password" placeholder="············" aria-describedby="login-password"
+                        <input class="form-control form-control-merge" id="password" type="password"
+                            name="password" placeholder="@lang("Password")" aria-describedby="password"
                             tabindex="2" /><span class="input-group-text cursor-pointer"><i data-feather="eye"></i></span>
                     </div>
                 </div>
                 <div class="mb-1">
                     <div class="form-check">
-                        <input class="form-check-input" id="remember-me" type="checkbox" tabindex="3" />
-                        <label class="form-check-label" for="remember-me"> @lang('Remember Me')</label>
+                        <input class="form-check-input" name="remember" {{ old('remember') ? 'checked' : '' }} id="remember" type="checkbox" tabindex="3" />
+                        <label class="form-check-label" for="remember"> @lang('Remember Me')</label>
                     </div>
                 </div>
                 <x-button>@lang('Log in')</x-button>

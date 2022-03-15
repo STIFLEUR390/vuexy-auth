@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -12,11 +13,15 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 Route::get('/', function () {
     return view('welcome');
 });
 
+Route::prefix('admin')->middleware(['auth'])->controller(ProfileController::class)->group(function () {
+    Route::get('/dashboard', 'index')->name('dashboard');
+    Route::get('/profile', 'profile')->name('profile');
+});
+/*
 Route::get('/register', function () {
     return view('auth.register');
 });
@@ -40,4 +45,5 @@ Route::get('/two-factor-challenge', function () {
 Route::get('/verify-email', function () {
     return view('auth.verify-email');
 });
+*/
 
