@@ -5,8 +5,8 @@
 <div class="customizer-content">
     <!-- Customizer header -->
     <div class="customizer-header px-2 pt-1 pb-0 position-relative">
-        <h4 class="mb-0">Theme Customizer</h4>
-        <p class="m-0">Customize & Preview in Real Time</p>
+        <h4 class="mb-0">@lang('Theme Customizer')</h4>
+        <p class="m-0">@lang('Customize & Preview in Real Time')</p>
 
         <a class="customizer-close" href="#"><i data-feather="x"></i></a>
     </div>
@@ -15,27 +15,27 @@
 
     <!-- Styling & Text Direction -->
     <div class="customizer-styling-direction px-2">
-        <p class="fw-bold">Skin</p>
+        <p class="fw-bold">@lang('Skin')</p>
         <div class="d-flex">
             <div class="form-check me-1">
                 <input type="radio" id="skinlight" name="skinradio" class="form-check-input layout-name"
                     checked data-layout="" />
-                <label class="form-check-label" for="skinlight">Light</label>
+                <label class="form-check-label" for="skinlight">@lang('Light')</label>
             </div>
             <div class="form-check me-1">
                 <input type="radio" id="skinbordered" name="skinradio" class="form-check-input layout-name"
                     data-layout="bordered-layout" />
-                <label class="form-check-label" for="skinbordered">Bordered</label>
+                <label class="form-check-label" for="skinbordered">@lang('Bordered')</label>
             </div>
             <div class="form-check me-1">
                 <input type="radio" id="skindark" name="skinradio" class="form-check-input layout-name"
                     data-layout="dark-layout" />
-                <label class="form-check-label" for="skindark">Dark</label>
+                <label class="form-check-label" for="skindark">@lang('Dark')</label>
             </div>
             <div class="form-check">
                 <input type="radio" id="skinsemidark" name="skinradio" class="form-check-input layout-name"
                     data-layout="semi-dark-layout" />
-                <label class="form-check-label" for="skinsemidark">Semi Dark</label>
+                <label class="form-check-label" for="skinsemidark">@lang('Semi Dark')</label>
             </div>
         </div>
     </div>
@@ -45,7 +45,7 @@
     <!-- Menu -->
     <div class="customizer-menu px-2">
         <div id="customizer-menu-collapsible" class="d-flex">
-            <p class="fw-bold me-auto m-0">Menu Collapsed</p>
+            <p class="fw-bold me-auto m-0">@lang('Menu Collapsed')</p>
             <div class="form-check form-check-primary form-switch">
                 <input type="checkbox" class="form-check-input" id="collapse-sidebar-switch" />
                 <label class="form-check-label" for="collapse-sidebar-switch"></label>
@@ -56,16 +56,16 @@
 
     <!-- Layout Width -->
     <div class="customizer-footer px-2">
-        <p class="fw-bold">Layout Width</p>
+        <p class="fw-bold">@lang('Layout Width')</p>
         <div class="d-flex">
             <div class="form-check me-1">
                 <input type="radio" id="layout-width-full" name="layoutWidth" class="form-check-input"
                     checked />
-                <label class="form-check-label" for="layout-width-full">Full Width</label>
+                <label class="form-check-label" for="layout-width-full">@lang('Full Width')</label>
             </div>
             <div class="form-check me-1">
                 <input type="radio" id="layout-width-boxed" name="layoutWidth" class="form-check-input" />
-                <label class="form-check-label" for="layout-width-boxed">Boxed</label>
+                <label class="form-check-label" for="layout-width-boxed">@lang('Boxed')</label>
             </div>
         </div>
     </div>
@@ -74,7 +74,7 @@
     <!-- Navbar -->
     <div class="customizer-navbar px-2">
         <div id="customizer-navbar-colors">
-            <p class="fw-bold">Navbar Color</p>
+            <p class="fw-bold">@lang('Navbar Color')</p>
             <ul class="list-inline unstyled-list">
                 <li class="color-box bg-white border selected" data-navbar-default=""></li>
                 <li class="color-box bg-primary" data-navbar-color="bg-primary"></li>
@@ -87,23 +87,23 @@
             </ul>
         </div>
 
-        <p class="navbar-type-text fw-bold">Navbar Type</p>
+        <p class="navbar-type-text fw-bold">@lang('Navbar Type')</p>
         <div class="d-flex">
             <div class="form-check me-1">
                 <input type="radio" id="nav-type-floating" name="navType" class="form-check-input" checked />
-                <label class="form-check-label" for="nav-type-floating">Floating</label>
+                <label class="form-check-label" for="nav-type-floating">@lang('Floating')</label>
             </div>
             <div class="form-check me-1">
                 <input type="radio" id="nav-type-sticky" name="navType" class="form-check-input" />
-                <label class="form-check-label" for="nav-type-sticky">Sticky</label>
+                <label class="form-check-label" for="nav-type-sticky">@lang('Sticky')</label>
             </div>
             <div class="form-check me-1">
                 <input type="radio" id="nav-type-static" name="navType" class="form-check-input" />
-                <label class="form-check-label" for="nav-type-static">Static</label>
+                <label class="form-check-label" for="nav-type-static">@lang('Static')</label>
             </div>
             <div class="form-check">
                 <input type="radio" id="nav-type-hidden" name="navType" class="form-check-input" />
-                <label class="form-check-label" for="nav-type-hidden">Hidden</label>
+                <label class="form-check-label" for="nav-type-hidden">@lang('Hidden')</label>
             </div>
         </div>
     </div>
@@ -111,20 +111,20 @@
 
     <!-- Footer -->
     <div class="customizer-footer px-2">
-        <p class="fw-bold">Footer Type</p>
+        <p class="fw-bold">@lang('Footer Type')</p>
         <div class="d-flex">
             <div class="form-check me-1">
                 <input type="radio" id="footer-type-sticky" name="footerType" class="form-check-input" />
-                <label class="form-check-label" for="footer-type-sticky">Sticky</label>
+                <label class="form-check-label" for="footer-type-sticky">@lang('Sticky')</label>
             </div>
             <div class="form-check me-1">
                 <input type="radio" id="footer-type-static" name="footerType" class="form-check-input"
                     checked />
-                <label class="form-check-label" for="footer-type-static">Static</label>
+                <label class="form-check-label" for="footer-type-static">@lang('Static')</label>
             </div>
             <div class="form-check me-1">
                 <input type="radio" id="footer-type-hidden" name="footerType" class="form-check-input" />
-                <label class="form-check-label" for="footer-type-hidden">Hidden</label>
+                <label class="form-check-label" for="footer-type-hidden">@lang('Hidden')</label>
             </div>
         </div>
     </div>

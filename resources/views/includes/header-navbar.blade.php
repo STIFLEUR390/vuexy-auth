@@ -22,8 +22,20 @@
             </ul>
         </div> --}}
         <ul class="nav navbar-nav align-items-center ms-auto">
-            <li class="nav-item dropdown dropdown-language"><a class="nav-link dropdown-toggle" id="dropdown-flag" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="flag-icon flag-icon-us"></i><span class="selected-language">English</span></a>
-                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-flag"><a class="dropdown-item" href="#" data-language="en"><i class="flag-icon flag-icon-us"></i> English</a><a class="dropdown-item" href="#" data-language="fr"><i class="flag-icon flag-icon-fr"></i> French</a><a class="dropdown-item" href="#" data-language="de"><i class="flag-icon flag-icon-de"></i> German</a><a class="dropdown-item" href="#" data-language="pt"><i class="flag-icon flag-icon-pt"></i> Portuguese</a></div>
+            <li class="nav-item dropdown dropdown-language">
+                <a class="nav-link dropdown-toggle" id="dropdown-flag" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="flag-icon {{ config('dev-master.flag_icon') }}"></i>
+                    <span class="selected-language">{{ Config::get('languages')[App::getLocale()]['display'] }}</span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-flag">
+                    @foreach (Config::get('languages') as $lang => $language)
+                        @if ($lang != App::getLocale())
+                            <a class="dropdown-item" href="{{ route('lang.switch', $lang) }}" data-language="{{ $lang }}">
+                                <i class="flag-icon flag-icon-{{$language['flag-icon']}}"></i> {{$language['display']}}
+                            </a>
+                        @endif
+                    @endforeach
+                </div>
             </li>
             <li class="nav-item d-none d-lg-block"><a class="nav-link nav-link-style"><i class="ficon" data-feather="sun"></i></a></li>
             {{-- <li class="nav-item nav-search"><a class="nav-link nav-link-search"><i class="ficon" data-feather="search"></i></a>

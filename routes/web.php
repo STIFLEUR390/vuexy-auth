@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\ProfileController;
+use App\Http\Controllers\LanguageController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,6 +18,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('lang/{lang}', [LanguageController::class, 'switchLang'])->name('lang.switch');
 Route::prefix('admin')->middleware(['auth'])->controller(ProfileController::class)->group(function () {
     Route::get('/dashboard', 'index')->name('dashboard');
     Route::get('/profile', 'profile')->name('profile')->middleware(['permission:update profile']);

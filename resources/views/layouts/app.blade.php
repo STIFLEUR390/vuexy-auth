@@ -8,12 +8,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0,minimal-ui">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta name="description" content="{{ env('DESCRIPTION') }}">
-    <meta name="keywords" content="{{ env('KEYWORDS') }}">
-    <meta name="author" content="{{ env('AUTHOR') }}">
+    <meta name="description" content="{{ config('dev-master.description') }}">
+    <meta name="keywords" content="{{ config('dev-master.keywords') }}">
+    <meta name="author" content="{{ config('dev-master.author') }}">
     <title>@yield('header-title') - {{ env('APP_NAME') }}</title>
-    <link rel="apple-touch-icon" href="{{ asset(env('APPLE_TOUCH_ICON')) }}">
-    <link rel="shortcut icon" type="image/x-icon" href="{{ asset(env('SHORTCUT_ICON')) }}">
+    <link rel="apple-touch-icon" href="{{ asset(config('dev-master.apple_touch_icon')) }}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset(config('dev-master.shortcut_icon')) }}">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600"
         rel="stylesheet">
 
@@ -91,7 +91,7 @@
     <!-- END: Content-->
 
 
-    @if (env('CUSTOMIZER'))
+    @if (config('dev-master.customizer'))
         @include('includes.customizer')
     @endif
 
@@ -111,7 +111,7 @@
     <!-- BEGIN: Theme JS-->
     <script src="{{ asset('admin/app-assets/js/core/app-menu.min.js') }}"></script>
     <script src="{{ asset('admin/app-assets/js/core/app.min.js') }}"></script>
-    @if (env('CUSTOMIZER'))
+    @if (config('dev-master.customizer'))
         <script src="{{ asset('admin/app-assets/js/scripts/customizer.min.js') }}"></script>
     @endif
     <!-- END: Theme JS-->
