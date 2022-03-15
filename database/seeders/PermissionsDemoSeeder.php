@@ -5,9 +5,11 @@ namespace Database\Seeders;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\PermissionRegistrar;
+
 
 class PermissionsDemoSeeder extends Seeder
 {
@@ -25,21 +27,39 @@ class PermissionsDemoSeeder extends Seeder
         Permission::create(['name' => 'update profile']);
         Permission::create(['name' => 'update password']);
         Permission::create(['name' => 'delete account']);
+        Permission::create(['name' => 'base']);
 
         // create roles and assign existing permissions
         $role1 = Role::create(['name' => 'user']);
         $role1->givePermissionTo('update profile');
         $role1->givePermissionTo('update password');
         $role1->givePermissionTo('delete account');
+        $role1->givePermissionTo('base');
 
         $role2 = Role::create(['name' => 'Super-Admin']);
         // gets all permissions via Gate::before rule; see AuthServiceProvider
 
         // create demo users
-        $user = User::factory(1)->create();
-        $user->assignRole($role2);
+        $user1 = User::factory()->create([
+            'name' => 'Ms. Margarette Jenkins',
+            'email' => 'terrell.kihn@example.net',
+            'email_verified_at' => now(),
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'remember_token' => Str::random(10),
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
 
-        $user = User::factory(1)->create();
-        $user->assignRole($role1);
+        $user2 = User::factory()->create([
+            'name' => 'Liana Bednar',
+            'email' => 'colin.medhurst@example.org',
+            'email_verified_at' => now(),
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'remember_token' => Str::random(10),
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        $user1->assignRole($role2);
+        $user2->assignRole($role1);
     }
 }

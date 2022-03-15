@@ -19,7 +19,7 @@ Route::get('/', function () {
 
 Route::prefix('admin')->middleware(['auth'])->controller(ProfileController::class)->group(function () {
     Route::get('/dashboard', 'index')->name('dashboard');
-    Route::get('/profile', 'profile')->name('profile');
+    Route::get('/profile', 'profile')->name('profile')->middleware(['permission:update profile']);
 });
 /*
 Route::get('/register', function () {
