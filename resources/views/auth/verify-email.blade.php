@@ -21,13 +21,21 @@
         <div class="col-12 col-sm-8 col-md-6 col-lg-12 px-xl-2 mx-auto">
             <h2 class="card-title fw-bolder mb-1">@lang('Verify your email ✉️')</h2>
             <p class="card-text mb-2">@lang('Account activation link sent to your email address:')
-                <span class="fw-bolder"> hello@pixinvent.com</span>
+                <span class="fw-bolder"> {{ Auth::user()->email }}.</span>
                 @lang("Please follow the link inside to continue.")
             </p>
-            <a class="btn btn-primary w-100" href="index.html">@lang("Skip for now")</a>
+
+            <!-- Validation Errors -->
+            <x-auth-validation-errors class="mb-4" :errors="$errors" />
+
+            <a class="btn btn-primary w-100" href="{{ route('dashboard') }}">@lang("Skip for now")</a>
             <p class="text-center mt-2">
                 <span>@lang("Didn't receive an email?")</span>
-                <a href="Javascript:void(0)"><span>&nbsp;@lang("Resend")</span></a>
+                <form method="POST" action="/email/verification-notification">
+                    @csrf
+
+                    <x-button>@lang("Resend")</x-button>
+                </form>
             </p>
         </div>
     </div>

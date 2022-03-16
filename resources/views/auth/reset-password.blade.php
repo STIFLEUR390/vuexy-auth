@@ -28,7 +28,7 @@
             <!-- Validation Errors -->
             <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
-            <form class="auth-reset-password-form mt-2" action="auth-login-cover.html" method="POST">
+            <form class="auth-reset-password-form mt-2" action="/reset-password" method="POST">
 
                 @csrf
                 <input type="hidden" name="token" value="{{ $request->route('token') }}">

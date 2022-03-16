@@ -11,7 +11,11 @@ class ProfileController extends Controller
 {
     public function index()
     {
-        $user  = User::find(Auth::user()->id);
+        $user = User::find(Auth::user()->id);
+
+        if (!$user->email_verified_at) {
+            return redirect()->route('verification.notice');
+        }
         return view('back.dashboard', compact('user'));
     }
 

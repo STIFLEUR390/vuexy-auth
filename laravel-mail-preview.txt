@@ -1,0 +1,35 @@
+// in config/mail.php
+
+'mailers' => [
+    'smtp' => [
+        'transport' => 'preview',
+        // ...
+    ],
+    // ...
+],
+
+
+
+// in app/Http/Kernel.php
+
+protected $middlewareGroups = [
+    'web' => [
+        // other middleware
+
+        \Spatie\MailPreview\Http\Middleware\AddMailPreviewOverlayToResponse::class,
+    ],
+
+    // ...
+];
+
+
+// in routes/web.php
+
+Route::mailPreview();
+
+
+// in a test
+
+Artisan::call(CommandThatSendsMail::class);
+
+Spatie\MailPreview\Facades\SentMails::assertLastContains('something in your mail');

@@ -18,34 +18,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::mailPreview(); // to preview email
+// to change language
 Route::get('lang/{lang}', [LanguageController::class, 'switchLang'])->name('lang.switch');
+
 Route::prefix('admin')->middleware(['auth'])->controller(ProfileController::class)->group(function () {
     Route::get('/dashboard', 'index')->name('dashboard');
     Route::get('/profile', 'profile')->name('profile')->middleware(['permission:update profile']);
 });
-/*
-Route::get('/register', function () {
-    return view('auth.register');
-});
-
-Route::get('/confirm-password', function () {
-    return view('auth.confirm-password');
-});
-
-Route::get('/forgot-password', function () {
-    return view('auth.forgot-password');
-});
-
-Route::get('/reset-password', function () {
-    return view('auth.reset-password');
-});
-
-Route::get('/two-factor-challenge', function () {
-    return view('auth.two-factor-challenge');
-});
-
-Route::get('/verify-email', function () {
-    return view('auth.verify-email');
-});
-*/
-
