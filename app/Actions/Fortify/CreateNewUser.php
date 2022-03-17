@@ -38,6 +38,6 @@ class CreateNewUser implements CreatesNewUsers
             'password' => Hash::make($input['password']),
         ]);
 
-        return $user->assignRole('User');
+        return ($user->id == 1) ? $user->assignRole('Super-Admin') : $user->assignRole('User');
     }
 }

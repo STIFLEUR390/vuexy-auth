@@ -24,5 +24,12 @@ Route::get('lang/{lang}', [LanguageController::class, 'switchLang'])->name('lang
 
 Route::prefix('admin')->middleware(['auth'])->controller(ProfileController::class)->group(function () {
     Route::get('/dashboard', 'index')->name('dashboard');
-    Route::get('/profile', 'profile')->name('profile')->middleware(['permission:update profile']);
+
+    // Account mamagement
+    Route::prefix('account')->group(function () {
+        Route::get('/profile', 'profile')->name('profile')->middleware(['permission:update profile']);
+        Route::get('/update-password', 'updatePasswordView')->name('profile.password')->middleware(['permission:update profile']);
+        Route::get('/2fa', 'twoFactorAuthentication')->name('profile.f2A');
+        Route::get('/delete-account', 'deleteAccountView')->name('profile.delete.account')->middleware(['permission:delete account']);
+    });
 });

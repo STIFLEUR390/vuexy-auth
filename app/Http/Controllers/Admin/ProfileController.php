@@ -22,6 +22,21 @@ class ProfileController extends Controller
     public function profile()
     {
         $user  = User::find(Auth::user()->id);
-        return view('back.profile', compact('user'));
+        return view('back.account.update-profile-information-form', compact('user'));
+    }
+
+    public function updatePasswordView()
+    {
+        return view('back.account.update-password-form');
+    }
+
+    public function twoFactorAuthentication()
+    {
+        return view('back.account.two-factor-authentication-form');
+    }
+
+    public function deleteAccountView()
+    {
+        return view('back.account.delete-user-form');
     }
 }

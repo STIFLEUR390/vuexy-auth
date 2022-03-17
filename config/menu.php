@@ -17,9 +17,24 @@ return [
         'type' => 'feather',
         'children' => [
             [
-                'name' => 'Account',
+                'name' => 'Profile Information',
                 'permission' => 'update profile',
                 'route' => 'profile',
+            ],
+            [
+                'name' => 'Update Password',
+                'permission' => 'update password',
+                'route' => 'profile.password',
+            ],
+            [
+                'name' => 'Two Factor Authentication',
+                'permission' => 'base',
+                'route' => 'profile.f2A',
+            ],
+            [
+                'name' => 'Delete Account',
+                'permission' => 'delete account',
+                'route' => 'profile.delete.account',
             ],
         ]
     ]

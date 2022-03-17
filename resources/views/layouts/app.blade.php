@@ -76,15 +76,7 @@
                 </div>
             </div>
             <div class="content-body">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="alert alert-primary" role="alert">
-                            <div class="alert-body">
-                                @yield('content')
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                @yield('content')
             </div>
         </div>
     </div>
