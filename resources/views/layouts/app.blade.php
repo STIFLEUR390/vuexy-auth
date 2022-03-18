@@ -19,6 +19,11 @@
 
     <!-- BEGIN: Vendor CSS-->
     <link rel="stylesheet" type="text/css" href="{{ asset('admin/app-assets/vendors/css/vendors.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('admin/app-assets/vendors/css/extensions/toastr.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('admin/app-assets/vendors/css/animate/animate.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('admin/app-assets/vendors/css/extensions/sweetalert2.min.css') }}">
+    @yield('styles')
+
     <!-- END: Vendor CSS-->
 
     <!-- BEGIN: Theme CSS-->
@@ -32,11 +37,13 @@
         href="{{ asset('admin/app-assets/css/themes/semi-dark-layout.min.css') }}">
 
     <!-- BEGIN: Page CSS-->
-    <link rel="stylesheet" type="text/css"
-        href="{{ asset('admin/app-assets/css/core/menu/menu-types/vertical-menu.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('admin/app-assets/css/core/menu/menu-types/vertical-menu.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('admin/app-assets/css/plugins/extensions/ext-component-toastr.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('admin/app-assets/css/plugins/extensions/ext-component-sweet-alerts.min.css') }}">
     <!-- END: Page CSS-->
 
     <!-- BEGIN: Custom CSS-->
+    @yield('style-custom')
     <link rel="stylesheet" type="text/css" href="{{ asset('admin/assets/css/style.css') }}">
     <!-- END: Custom CSS-->
 
@@ -98,6 +105,10 @@
     <!-- BEGIN Vendor JS-->
 
     <!-- BEGIN: Page Vendor JS-->
+    @yield('scripts')
+    <script src="{{ asset('admin/app-assets/vendors/js/extensions/toastr.min.js') }}"></script>
+    <script src="{{ asset('admin/app-assets/vendors/js/extensions/sweetalert2.all.min.js') }}"></script>
+    <script src="{{ asset('admin/app-assets/vendors/js/extensions/polyfill.min.js') }}"></script>
     <!-- END: Page Vendor JS-->
 
     <!-- BEGIN: Theme JS-->
@@ -109,8 +120,158 @@
     <!-- END: Theme JS-->
 
     <!-- BEGIN: Page JS-->
-    <!-- END: Page JS-->
 
+    //Toast notification
+    <script>
+        @if (Session::has('message') && Session::get('type') == 'toast')
+            var type_message = "{{ Session::get('alert-type','info') }}";
+            var o = "rtl" === $("html").attr("data-textdirection");
+            $(function () {
+                "use strict";
+
+                switch (type_message) {
+                    case 'info':
+                        toastr.info(
+                            "{{ Session::get('message') }}",
+                            "{{ __(env('APP_NAME')) }}",
+                            { closeButton: !0, tapToDismiss: !1, progressBar: !0, timeOut: 5000, rtl: o }
+                        );
+                        break;
+                    case 'success':
+                        toastr.success(
+                            "{{ Session::get('message') }}",
+                            "{{ __(env('APP_NAME')) }}",
+                            { closeButton: !0, tapToDismiss: !1, progressBar: !0, timeOut: 5000, rtl: o }
+                        );
+                        break;
+                    case 'warning':
+                        toastr.warning(
+                            "{{ Session::get('message') }}",
+                            "{{ __(env('APP_NAME')) }}",
+                            { closeButton: !0, tapToDismiss: !1, progressBar: !0, timeOut: 5000, rtl: o }
+                        );
+                        break;
+                    case 'error':
+                        toastr.error(
+                            "{{ Session::get('message') }}",
+                            "{{ __(env('APP_NAME')) }}",
+                            { closeButton: !0, tapToDismiss: !1, progressBar: !0, timeOut: 5000, rtl: o }
+                        );
+                        break;
+                }
+            })
+        @endif
+    </script>
+
+    //sweet-alert confirm deletion
+
+    <script>
+        $(function() {
+            $(".deleteElement").on('click', function(e) {
+                e.preventDefault();
+
+                Swal.fire({
+                    title: '{{ __(env("APP_NAME")) }}',
+                    text: '{{ Session::get("message") }}',
+                    icon: "warning",
+                    showCancelButton: !0,
+                    confirmButtonText: "{{ __('Yes, delete it!') }}",
+                    customClass: {
+                        confirmButton: "btn btn-primary",
+                        cancelButton: "btn btn-outline-danger ms-1",
+                    },
+                    buttonsStyling: !1,
+                }).then(function (t) {
+                    t.value
+                        ? /* Swal.fire({
+                            icon: "success",
+                            title: "Deleted!",
+                            text: "{{ __('Your data has been deleted.') }}",
+                            customClass: { confirmButton: "btn btn-success" }, */
+                            this.prev().closest('form').submit(),
+                    })
+                    : t.dismiss === Swal.DismissReason.cancel &&
+                        Swal.fire({
+                            title: "Cancelled",
+                            text: "{{ __('Your data is safe :)') }}",
+                            icon: "error",
+                            customClass: { confirmButton: "btn btn-success" },
+                        });
+                });
+            })
+        })
+    </script>
+    //sweet-alert notification
+    <script>
+        @if (Session::has('message') && Session::get('type') == 'sweet')
+            var type_message = "{{ Session::get('alert-type','info') }}";
+            var o = "rtl" === $("html").attr("data-textdirection");
+            $(function () {
+                "use strict";
+
+                switch (type_message) {
+                    case 'info':
+                        Swal.fire({
+                            title: '{{ __(env("APP_NAME")) }}',
+                            text: '{{ Session::get("message") }}',
+                            icon: "info",
+                            // type: 'info',
+                            showCancelButton: false,
+                            customClass: {
+                                confirmButton: "btn btn-primary",
+                                cancelButton: "btn btn-danger",
+                            },
+                            timer: 5000
+                        })
+                        break;
+                    case 'success':
+                        Swal.fire({
+                            title: '{{ __(env("APP_NAME")) }}',
+                            text: '{{ Session::get("message") }}',
+                            icon: "success",
+                            // type: 'info',
+                            showCancelButton: false,
+                            customClass: {
+                                confirmButton: "btn btn-primary",
+                                cancelButton: "btn btn-danger",
+                            },
+                            timer: 5000
+                        })
+                        break;
+                    case 'warning':
+                        Swal.fire({
+                            title: '{{ __(env("APP_NAME")) }}',
+                            text: '{{ Session::get("message") }}',
+                            icon: "warning",
+                            // type: 'info',
+                            showCancelButton: false,
+                            customClass: {
+                                confirmButton: "btn btn-primary",
+                                cancelButton: "btn btn-danger",
+                            },
+                            timer: 5000
+                        })
+                        break;
+                    case 'error':
+                        Swal.fire({
+                            title: '{{ __(env("APP_NAME")) }}',
+                            text: '{{ Session::get("message") }}',
+                            icon: "error",
+                            // type: 'info',
+                            showCancelButton: false,
+                            customClass: {
+                                confirmButton: "btn btn-primary",
+                                cancelButton: "btn btn-danger",
+                            },
+                            timer: 5000
+                        })
+                        break;
+                }
+            })
+        @endif
+    </script>
+    @yield('script-custom')
+    <!-- END: Page JS-->
     <script>
         $(window).on('load', function() {
             if (feather) {

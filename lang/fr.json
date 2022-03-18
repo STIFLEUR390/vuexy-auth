@@ -752,5 +752,10 @@
     "Didn't get the code?": "Vous n'avez pas reçu le code?",
     "Call Us": "Appelez-nous",
     "Account Settings": "Paramètres de compte",
-    "Account": "Compte"
+    "Account": "Compte",
+    "Yes, delete it!": "Oui, supprimez-le",
+    "Your file has been deleted.": "Votre fichier a été suppimé.",
+    "Your data has been deleted.": "Vos données ont été suppimé.",
+    "Your file is safe :)": "Votre fichier est en sécurité :)",
+    "Your data is safe :)": "Vos données sont en sécurité :)"
 }
