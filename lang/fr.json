@@ -757,5 +757,14 @@
     "Your file has been deleted.": "Votre fichier a été suppimé.",
     "Your data has been deleted.": "Vos données ont été suppimé.",
     "Your file is safe :)": "Votre fichier est en sécurité :)",
-    "Your data is safe :)": "Vos données sont en sécurité :)"
+    "Your data is safe :)": "Vos données sont en sécurité :)",
+    "The :attribute must be at least 8 characters and contain at least 1 uppercase character.": "Le :attribute doit comporter au moins 8 caractères et contenir au moins 1 caractère majuscule.",
+    "The :attribute must be at least 8 characters and contain at least 1 number.": "Le :doit comporter au moins 8 caractères et contenir au moins 1 chiffre.",
+    "The :attribute must be at least 8 characters and contain at least 1 special character.": "Le :attribute doit comporter au moins 8 caractères et contenir au moins 1 caractère spécial.",
+    "The :attribute must be at least 8 characters and contain at least 1 uppercase character and 1 number.": "Le :attribute doit comporter au moins 8 caractères et contenir au moins 1 caractère majuscule et 1 chiffre.",
+    "The :attribute must be at least 8 characters and contain at least 1 uppercase character and 1 special character.": "Le :attribute doit comporter au moins 8 caractères et contenir au moins 1 caractère majuscule et 1 caractère spécial.",
+    "The :attribute must be at least 8 characters and contain at least 1 uppercase character, 1 number, and 1 special character.": "Le :attribute doit comporter au moins 8 caractères et contenir au moins 1 caractère majuscule, 1 chiffre et 1 caractère spécial.",
+    "The :attribute must be at least 8 characters.": "Le :attribute doit comporter au moins 8 caractères.",
+    "Current password does not match!": "Le mot de passe actuel ne correspond pas!",
+    "Authentication code": "Code d'authentification"
 }

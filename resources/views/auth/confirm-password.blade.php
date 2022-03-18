@@ -11,8 +11,7 @@
 @section('content')
     <!-- Left Text-->
     <div class="d-none d-lg-flex col-lg-8 align-items-center p-5">
-        <div class="w-100 d-lg-flex align-items-center justify-content-center px-5"><img class="img-fluid" src="@lang("
-                admin/app-assets/images/pages/forgot-password-v2-dark.svg")" alt="@lang(" Forgot Your Password?")" /></div>
+        <div class="w-100 d-lg-flex align-items-center justify-content-center px-5"><img class="img-fluid" src="{{ asset('admin/app-assets/images/pages/forgot-password-v2-dark.svg') }}" alt="@lang(" Forgot Your Password?")" /></div>
     </div>
     <!-- /Left Text-->
     <!-- Forgot password-->
@@ -21,15 +20,20 @@
             <h2 class="card-title fw-bold mb-1">@lang("Confirm Password")</h2>
             <p class="card-text mb-2">
                 {{ __('This is a secure area of the application. Please confirm your password before continuing.') }}</p>
-            <form class="auth-forgot-password-form mt-2" action="auth-reset-password-cover.html" method="POST">
+
+
+            <!-- Validation Errors -->
+            <x-auth-validation-errors class="mb-4" :errors="$errors" />
+
+           <form class="auth-forgot-password-form mt-2" action="/user/confirm-password" method="POST">
+                @csrf
                 <div class="mb-1">
                     <div class="d-flex justify-content-between">
-                        <label class="form-label" for="login-password">@lang('Password')</label><a
-                            href="auth-forgot-password-cover.html"><small>@lang('Forgot Your Password?')</small></a>
+                        <label class="form-label" for="password">@lang('Password')</label>
                     </div>
                     <div class="input-group input-group-merge form-password-toggle">
-                        <input class="form-control form-control-merge" id="login-password" type="password"
-                            name="login-password" placeholder="············" aria-describedby="login-password"
+                        <input class="form-control form-control-merge" id="password" type="password" autocomplete="current-password"
+                            name="password" placeholder="@lang("Password")" aria-describedby="password"
                             tabindex="2" /><span class="input-group-text cursor-pointer"><i data-feather="eye"></i></span>
                     </div>
                 </div>

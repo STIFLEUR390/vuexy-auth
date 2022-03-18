@@ -3,5 +3,12 @@
     "The :attribute must contain at least one number.": "The :attribute must contain at least one number.",
     "The :attribute must contain at least one symbol.": "The :attribute must contain at least one symbol.",
     "The :attribute must contain at least one uppercase and one lowercase letter.": "The :attribute must contain at least one uppercase and one lowercase letter.",
-    "The given :attribute has appeared in a data leak. Please choose a different :attribute.": "The given :attribute has appeared in a data leak. Please choose a different :attribute."
+    "The given :attribute has appeared in a data leak. Please choose a different :attribute.": "The given :attribute has appeared in a data leak. Please choose a different :attribute.",
+    "The :attribute must be at least 8 characters and contain at least 1 uppercase character.": "The :attribute must be at least 8 characters and contain at least 1 uppercase character.",
+    "The :attribute must be at least 8 characters and contain at least 1 number.": "The :attribute must be at least 8 characters and contain at least 1 number.",
+    "The :attribute must be at least 8 characters and contain at least 1 special character.": "The :attribute must be at least 8 characters and contain at least 1 special character.",
+    "The :attribute must be at least 8 characters and contain at least 1 uppercase character and 1 number.": "The :attribute must be at least 8 characters and contain at least 1 uppercase character and 1 number.",
+    "The :attribute must be at least 8 characters and contain at least 1 uppercase character and 1 special character.": "The :attribute must be at least 8 characters and contain at least 1 uppercase character and 1 special character.",
+    "The :attribute must be at least 8 characters and contain at least 1 uppercase character, 1 number, and 1 special character.": "The :attribute must be at least 8 characters and contain at least 1 uppercase character, 1 number, and 1 special character.",
+    "The :attribute must be at least 8 characters.": "The :attribute must be at least 8 characters."
 }

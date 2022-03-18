@@ -30,6 +30,7 @@ Route::prefix('admin')->middleware(['auth', 'verified'])->controller(ProfileCont
         Route::get('/profile', 'profile')->name('profile')->middleware(['permission:update profile']);
         Route::put('/profile', 'updateProfile')->name('profile.update')->middleware(['permission:update profile']);
         Route::get('/update-password', 'updatePasswordView')->name('profile.password')->middleware(['permission:update profile']);
+        Route::put('/update-password', 'updatePassword')->name('profile.password.update')->middleware(['permission:update profile']);
         Route::get('/2fa', 'twoFactorAuthentication')->name('profile.f2A');
         Route::get('/delete-account', 'deleteAccountView')->name('profile.delete.account')->middleware(['permission:delete account']);
     });

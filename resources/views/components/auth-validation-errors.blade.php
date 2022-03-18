@@ -1,7 +1,7 @@
 @props(['errors'])
 
 @if ($errors->any())
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
         <h4 class="alert-heading">@lang('Whoops! Something went wrong.')</h4>
         <div class="alert-body">
             <ul>
