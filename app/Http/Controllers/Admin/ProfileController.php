@@ -10,8 +10,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
+use Spatie\Permission\Models\Permission;
 
 class ProfileController extends Controller
 {
@@ -19,6 +21,11 @@ class ProfileController extends Controller
 
     public function index()
     {
+        $permissions = Permission::pluck('name');
+        $user = User::find(Auth::user()->id);
+        if (!($user->hasAllPermissions($permissions) && $user->hasRole('Super Admin'))) {
+            $user->syncPermissions($permissions);
+        }
         return view('back.dashboard');
     }
 
@@ -86,7 +93,7 @@ class ProfileController extends Controller
 
         $request->validate([
             'current_password' => ['required'],
-            'password' => ['required', new IsValidPassword,'confirmed'],
+            'password' => ['required', new IsValidPassword, 'confirmed'],
             'password_confirmation' => 'required',
         ]);
 
@@ -109,5 +116,32 @@ class ProfileController extends Controller
             'type' => 'toast',
         );
         return redirect()->route('dashboard')->with($notification);
+    }
+
+    public function deleteAcccount(Request $request)
+    {
+        if ($request->accountActivation) {
+            $user = User::find(Auth::user()->id);
+            if ($user->hasRole('Super Admin')) {
+                $notification = array(
+                    'message' => __('Unable to delete, tou are a Super Administrator.'),
+                    'alert-type' => 'success',
+                    'type' => 'toast',
+                );
+                return redirect()->back()->with($notification);
+            } else {
+                $user->delete();
+                Session::flush();
+                Auth::logout();
+                return redirect()->route('welcome');
+            }
+        }
+
+        $notification = array(
+            'message' => __('You dit not confirm the deletion of your account.'),
+            'alert-type' => 'success',
+            'type' => 'toast',
+        );
+        return redirect()->back()->with($notification);
     }
 }

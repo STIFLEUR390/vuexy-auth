@@ -4,7 +4,7 @@
         <a class="nav-link {{ currentRouteActive('profile') }}" href="{{ route('profile') }}">
             {{-- <i data-feather="user" class="font-medium-3 me-50"></i> --}}
             <i data-feather='user-check' class="font-medium-3 me-50"></i>
-            <span class="fw-bold">@lang("Profile Information")</span>
+            <span class="fw-bold">@lang("Profile")</span>
         </a>
     </li>
     <!-- security -->

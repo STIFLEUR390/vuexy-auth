@@ -766,5 +766,8 @@
     "The :attribute must be at least 8 characters and contain at least 1 uppercase character, 1 number, and 1 special character.": "Le :attribute doit comporter au moins 8 caractères et contenir au moins 1 caractère majuscule, 1 chiffre et 1 caractère spécial.",
     "The :attribute must be at least 8 characters.": "Le :attribute doit comporter au moins 8 caractères.",
     "Current password does not match!": "Le mot de passe actuel ne correspond pas!",
-    "Authentication code": "Code d'authentification"
+    "Authentication code": "Code d'authentification",
+    "You dit not confirm the deletion of your account.": "Vous n'avez pas confirmer la suppression de vptre compte",
+    "Unable to delete, tou are a Super Administrator.": "Suppression imposible, vous êtes un Super Administrateur",
+    "Account delete successfully.": "Compte supprimer avec succès"
 }

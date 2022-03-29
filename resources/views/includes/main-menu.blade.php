@@ -50,44 +50,98 @@
     <div class="shadow-bottom"></div>
     <div class="main-menu-content">
         <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
-            @php
-                $user = Auth::user();
-            @endphp
-            @foreach (config('menu') as $name => $elements)
-                @if ($user->hasAnyPermission(explode('|', $elements['permission'])))
-                    @isset($elements['children'])
-                        <li class=" nav-item">
-                            <a class="d-flex align-items-center" href="javascript:void(0);">
-                                <i
-                                    @if ($elements['type'] == 'font') class="{{ $elements['icon'] }}"
+            @env('local')
+                @foreach (config('menu') as $name => $elements)
+                    @if (Auth::user()->hasAnyPermission(explode('|', $elements['permission'])))
+                        @isset($elements['children'])
+                            <li class=" nav-item">
+                                <a class="d-flex align-items-center" href="javascript:void(0);">
+                                    <i
+                                        @if ($elements['type'] == 'font') class="{{ $elements['icon'] }}"
                                     @else
                                         data-feather="{{ $elements['icon'] }}" @endif></i>
-                                <span class="menu-title text-truncate" data-i18n="@lang($name)">@lang($name)</span>
-                                {{-- <span class="badge badge-light-warning rounded-pill ms-auto me-1">2</span> --}}
-                            </a>
-                            <ul class="menu-content">
-                                @foreach ($elements['children'] as $child)
-                                    @if ($user->hasAnyPermission(explode('|', $child['permission'])))
-                                        <x-back.menu-item :route="$child['route']" :sub=true :type="$elements['type']">
-                                            @lang($child['name'])
+                                    <span class="menu-title text-truncate" data-i18n="@lang($name)">@lang($name)</span>
+                                    {{-- <span class="badge badge-light-warning rounded-pill ms-auto me-1">2</span> --}}
+                                </a>
+                                <ul class="menu-content">
+                                    @foreach ($elements['children'] as $child)
+                                        @if (Auth::user()->hasAnyPermission(explode('|', $child['permission'])))
+                                            <x-back.menu-item :route="$child['route']" :sub=true :type="$elements['type']">
+                                                @lang($child['name'])
+                                            </x-back.menu-item>
+                                        @endif
+                                    @endforeach
+                                </ul>
+                            </li>
+                        @else
+                            @isset($elements['header'])
+                                <li class=" navigation-header"><span data-i18n="@lang($name)">@lang($name)</span><i
+                                        data-feather="more-horizontal"></i>
+                                @else
+                                    <x-back.menu-item :route="$elements['route']" :icon="$elements['icon']"
+                                        :type="$elements['type']">
+                                        @lang($name)
+                                    </x-back.menu-item>
+                                @endisset
+                            @endisset
+                    @endif
+                @endforeach
+            @endenv
+            @env('production')
+                @foreach (config('menu') as $name => $elements)
+                    @if (Auth::user()->hasAnyPermission(explode('|', $elements['permission'])))
+                        @isset($elements['children'])
+                            <li class=" nav-item" @isset($elements['online']) @if (!$elements['online']) style="display: none;" @endif @endisset>
+                                <a class="d-flex align-items-center" href="javascript:void(0);" @isset($elements['online']) @if (!$elements['online']) style="display: none;" @endif @endisset>
+                                    <i
+                                        @if ($elements['type'] == 'font') class="{{ $elements['icon'] }}"
+                                    @else
+                                        data-feather="{{ $elements['icon'] }}" @endif></i>
+                                    <span class="menu-title text-truncate" data-i18n="@lang($name)">@lang($name)</span>
+                                    {{-- <span class="badge badge-light-warning rounded-pill ms-auto me-1">2</span> --}}
+                                </a>
+                                <ul class="menu-content" @isset($elements['online']) @if (!$elements['online']) style="display: none;" @endif @endisset>
+                                    @foreach ($elements['children'] as $child)
+                                        @if (Auth::user()->hasAnyPermission(explode('|', $child['permission'])))
+                                            @isset($child['online'])
+                                                @if ($child['online'])
+                                                    <x-back.menu-item :route="$child['route']" :sub=true :type="$elements['type']">
+                                                        @lang($child['name'])
+                                                    </x-back.menu-item>
+                                                @endif
+                                            @else
+                                                <x-back.menu-item :route="$child['route']" :sub=true :type="$elements['type']">
+                                                    @lang($child['name'])
+                                                </x-back.menu-item>
+                                            @endisset
+                                        @endif
+                                    @endforeach
+                                </ul>
+                            </li>
+                        @else
+                            @isset($elements['header'])
+                                <li @isset($elements['online']) @if (!$elements['online']) style="display: none;" @endif @endisset class=" navigation-header"><span data-i18n="@lang($name)">@lang($name)</span><i
+                                        data-feather="more-horizontal"></i>
+                                @else
+                                    @isset($elements['online'])
+                                        @if ($elements['online'])
+                                            <x-back.menu-item :route="$elements['route']" :icon="$elements['icon']"
+                                                :type="$elements['type']">
+                                                @lang($name)
+                                            </x-back.menu-item>
+                                        @endif
+                                    @else
+                                        <x-back.menu-item :route="$elements['route']" :icon="$elements['icon']"
+                                            :type="$elements['type']">
+                                            @lang($name)
                                         </x-back.menu-item>
-                                    @endif
-                                @endforeach
-                            </ul>
-                        </li>
-                    @else
-                        @isset ($elements['header'])
-                            <li class=" navigation-header"><span data-i18n="@lang($name)">@lang($name)</span><i
-                                    data-feather="more-horizontal"></i>
-                            @else
-                                <x-back.menu-item :route="$elements['route']" :icon="$elements['icon']"
-                                    :type="$elements['type']">
-                                    @lang($name)
-                                </x-back.menu-item>
-                        @endisset
-                    @endisset
-                @endif
-            @endforeach
+                                    @endisset
+
+                                @endisset
+                            @endisset
+                    @endif
+                @endforeach
+            @endenv
         </ul>
     </div>
 </div>

@@ -36,7 +36,7 @@ class PermissionsDemoSeeder extends Seeder
         $role1->givePermissionTo('delete account');
         $role1->givePermissionTo('base');
 
-        $role2 = Role::create(['name' => 'Super-Admin']);
+        $role2 = Role::create(['name' => 'Super Admin']);
         // gets all permissions via Gate::before rule; see AuthServiceProvider
 
         // create demo users
@@ -59,7 +59,7 @@ class PermissionsDemoSeeder extends Seeder
             'created_at' => now(),
             'updated_at' => now()
         ]);
-        $user1->assignRole($role2);
+        $user1->assignRole('Super Admin');
         $user2->assignRole($role1);
     }
 }
