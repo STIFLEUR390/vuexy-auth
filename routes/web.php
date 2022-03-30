@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\Permission\PermissionController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\Role\RoleController;
+use App\Http\Controllers\Admin\Role\UserController as RoleUserController;
 use App\Http\Controllers\LanguageController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
@@ -51,8 +52,18 @@ Route::prefix('admin')->middleware(['auth', 'verified'])->controller(ProfileCont
         'roles' => RoleController::class,
         'permissions' => PermissionController::class,
     ], ['except' => 'show']);
-    Route::post('/permissions/{permission}/roles', [PermissionController::class, 'assignRole'])->name('permissions.roles');
-    Route::delete('/permissions/{permission}/roles/{role}', [PermissionController::class, 'removeRole'])->name('permission.roleRemove');
-    Route::post('/roles/{role}/permissions', [RoleController::class, 'givePermission'])->name('roles.permissions');
-    Route::delete('/roles/{role}/permissions/{permission}', [RoleController::class, 'revokePermission'])->name('roles.permissions.revoke');
+    Route::post('/permissions/{permission}/roles', [PermissionController::class, 'assignRole'])->name('permissions.roles'); // assign role to a permission
+    Route::delete('/permissions/{permission}/roles/{role}', [PermissionController::class, 'removeRole'])->name('permission.roleRemove'); //Remove role to a permission
+    Route::post('/roles/{role}/permissions', [RoleController::class, 'givePermission'])->name('roles.permissions'); // Add permission in a role
+    Route::delete('/roles/{role}/permissions/{permission}', [RoleController::class, 'revokePermission'])->name('roles.permissions.revoke');// revoke permission in a role
+
+    Route::prefix('roles-permissions/users')->middleware(['role:Super Admin'])->name('rol.users.')->controller(RoleUserController::class)->group(function(){
+        Route::get('/', 'index')->name('index');
+        Route::get('/{user}', 'show')->name('show');
+        Route::delete('/{user}', 'destroy')->name('destroy');
+        Route::post('/{user}/roles', 'assignRole')->name('roles');
+        Route::delete('/{user}/roles/{role}', 'removeRole')->name('roles.remove');
+        Route::post('/{user}/permissions', 'givePermission')->name('permissions');
+        Route::delete('/{user}/permissions/{permission}', 'revokePermission')->name('permissions.revoke');
+    });
 });

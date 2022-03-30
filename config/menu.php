@@ -77,4 +77,10 @@ return [
             ],
         ]
     ],
+    'Users' => [
+        'permission' => 'create role|create permission',
+        'route'  => 'rol.users.index',
+        'icon'   => 'users',
+        'type' => 'feather',
+    ],
 ];

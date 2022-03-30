@@ -163,7 +163,7 @@ class PermissionController extends Controller
         // $permission->syncRoles($request->roles);
 
         $notification = array(
-                'message' => __('role assigned.'),
+                'message' => __('Role assigned.'),
                 'alert-type' => 'info',
                 'type' => 'toast',
         );
