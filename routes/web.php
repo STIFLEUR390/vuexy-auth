@@ -58,12 +58,12 @@ Route::prefix('admin')->middleware(['auth', 'verified'])->controller(ProfileCont
     Route::delete('/roles/{role}/permissions/{permission}', [RoleController::class, 'revokePermission'])->name('roles.permissions.revoke');// revoke permission in a role
 
     Route::prefix('roles-permissions/users')->middleware(['role:Super Admin'])->name('rol.users.')->controller(RoleUserController::class)->group(function(){
-        Route::get('/', 'index')->name('index');
-        Route::get('/{user}', 'show')->name('show');
-        Route::delete('/{user}', 'destroy')->name('destroy');
-        Route::post('/{user}/roles', 'assignRole')->name('roles');
-        Route::delete('/{user}/roles/{role}', 'removeRole')->name('roles.remove');
-        Route::post('/{user}/permissions', 'givePermission')->name('permissions');
-        Route::delete('/{user}/permissions/{permission}', 'revokePermission')->name('permissions.revoke');
+        Route::get('/', 'index')->name('index'); // show all user
+        Route::get('/{user}', 'show')->name('show'); // show user detail permissions and roles
+        Route::delete('/{user}', 'destroy')->name('destroy'); // delete user
+        Route::post('/{user}/roles', 'assignRole')->name('roles'); // assign role to a user
+        Route::delete('/{user}/roles/{role}', 'removeRole')->name('roles.remove'); // Remove role to a user
+        Route::post('/{user}/permissions', 'givePermission')->name('permissions'); // Give permmission to a user
+        Route::delete('/{user}/permissions/{permission}', 'revokePermission')->name('permissions.revoke'); //revoke user permission
     });
 });
