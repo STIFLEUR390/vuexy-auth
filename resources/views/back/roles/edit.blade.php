@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
 @section("header-title")
-    @lang('Edit permission')
+    @lang('Edit role')
 @endsection
 
 @section('title')
-    @lang("Edit permission")
+    @lang("Edit role")
 @endsection
 
 @section('content')
@@ -15,13 +15,13 @@
             <div class="col-md-12 col-12">
                 <div class="card">
                     <div class="card-header">
-                        <a href="{{ route('permissions.index') }}" class="card-title btn btn-info mb-2">
+                        <a href="{{ route('roles.index') }}" class="card-title btn btn-info mb-2">
                             <i data-feather='arrow-left'></i>
                             @lang('Return')
                         </a>
                     </div>
                     <div class="card-body">
-                        <form class="form form-horizontal" method="POST" action="{{ route('permissions.update', $permission->id) }}">
+                        <form class="form form-horizontal" method="POST" action="{{ route('roles.update', $role->id) }}">
                             @csrf
                             @method("PUT")
 
@@ -32,9 +32,9 @@
                                             <label class="col-form-label" for="name">@lang("Name")</label>
                                         </div>
                                         <div class="col-sm-9">
-                                            <input type="text" value="{{ $permission->name }}" id="name" class="form-control" name="name" placeholder="@lang('Name')" />
+                                            <input type="text" value="{{ $role->name }}" id="name" class="form-control" name="name" placeholder="@lang('Name')" />
                                             @error('name')
-                                                <div class="invalid-feedback" style="display: block;">{{ $message }}</div>
+                                                <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
                                         </div>
                                     </div>
@@ -47,24 +47,24 @@
                     </div>
                 </div>
             </div>
-           @if ($permission->roles)
+           @if ($role->permissions)
                 <div class="col-md-12 col-12">
                     <div class="card">
                         <div class="card-header">
-                            @lang('Roles')
+                            @lang('Permissions')
                         </div>
                         <div class="card-body">
                             <ul>
-                                @foreach ($permission->roles as $key => $row)
+                                @foreach ($role->permissions as $key => $row)
                                     <li>
                                         <div class="row mt-1">
                                             <div class="col-3">{{ $row->name }}</div>
                                             <div class="col-3">
-                                                <form method="POST" action="{{ route('permission.roleRemove', ['permission' => $permission->id, 'role' => $row->id]) }}">
+                                                <form method="POST" action="{{ route('roles.permissions.revoke', ['permission' => $row->id, 'role' => $role->id]) }}">
                                                     @csrf
                                                     @method('DELETE')
 
-                                                    <a href="{{ route('permission.roleRemove', ['permission' => $permission->id, 'role' => $row->id]) }}" type="submit" class="deleteElement" id="rol{{ $key+1 }}"><i data-feather='delete'></i></a>
+                                                    <a href="{{ route('permission.roleRemove', ['permission' => $row->id, 'role' => $role->id]) }}" type="submit" class="deleteElement" id="per{{ $key+1 }}"><i data-feather='delete'></i></a>
                                                 </form>
                                             </div>
                                         </div>
@@ -75,29 +75,29 @@
                     </div>
                 </div>
            @endif
-           @if ($roles)
+           @if ($permissions)
                 <div class="col-md-12 col-12">
                     <div class="card">
                         <div class="card-header">
-                            @lang('Assign a role to a permission')
+                            @lang('Assign a permissions to a role')
                         </div>
                         <div class="card-body">
-                            <form class="form form-horizontal" method="POST" action="{{ route('permissions.roles', $permission->id) }}">
+                            <form class="form form-horizontal" method="POST" action="{{ route('roles.permissions', $role->id) }}">
                                 @csrf
 
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="mb-1 row">
                                             <div class="col-sm-3">
-                                                <label class="col-form-label" for="role">@lang("Roles")</label>
+                                                <label class="col-form-label" for="permissions">@lang("Permission")</label>
                                             </div>
                                             <div class="col-sm-9">
-                                                <select class="select2 form-select" name="role" id="role">
-                                                    @foreach ($roles as $role)
-                                                        <option value="{{ $role->name }}">{{ $role->name }}</option>
+                                                <select class="select2 form-select" name="permission" id="permissions" >
+                                                    @foreach ($permissions as $permission)
+                                                        <option value="{{ $permission->name }}">{{ $permission->name }}</option>
                                                     @endforeach
                                                 </select>
-                                                @error('role')
+                                                @error('permission')
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
                                             </div>

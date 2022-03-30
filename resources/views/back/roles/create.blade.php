@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
 @section("header-title")
-    @lang('Create permission')
+    @lang('Create role')
 @endsection
 
 @section('title')
-    @lang("Create permission")
+    @lang("Create role")
 @endsection
 
 @section('content')
@@ -15,13 +15,13 @@
             <div class="col-md-12 col-12">
                 <div class="card">
                     <div class="card-header">
-                        <a href="{{ route('permissions.index') }}" class="card-title btn btn-info mb-2">
+                        <a href="{{ route('roles.index') }}" class="card-title btn btn-info mb-2">
                             <i data-feather='arrow-left'></i>
                             @lang('Return')
                         </a>
                     </div>
                     <div class="card-body">
-                        <form class="form form-horizontal" method="POST" action="{{ route('permissions.store') }}">
+                        <form class="form form-horizontal" method="POST" action="{{ route('roles.store') }}">
                             @csrf
 
                             <div class="row">

@@ -16,7 +16,6 @@ class PermissionController extends Controller
      */
     public function __construct()
     {
-        //create permission  edit permission  show permssion delete permission
         $this->middleware('permission:create permission')->only('create', 'store');
         $this->middleware('permission:edit permission')->only('edit', 'update');
         $this->middleware('permission:show permssion')->only('show', 'index');
@@ -150,7 +149,8 @@ class PermissionController extends Controller
     {
         $validated = $request->validate(['roles.*' => 'required']);
 
-        if ($permission->hasAllRoles($request->roles)){
+        if ($permission->hasRole($request->role)){
+        // if ($permission->hasAllRoles($request->roles)){
             $notification = array(
                 'message' => __('Role exists.'),
                 'alert-type' => 'info',
@@ -159,7 +159,8 @@ class PermissionController extends Controller
             return back()->with($notification);
         }
 
-        $permission->syncRoles($request->roles);
+        $permission->assignRole($request->role);
+        // $permission->syncRoles($request->roles);
 
         $notification = array(
                 'message' => __('role assigned.'),

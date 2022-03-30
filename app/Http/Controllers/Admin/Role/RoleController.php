@@ -4,10 +4,25 @@ namespace App\Http\Controllers\Admin\Role;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
 class RoleController extends Controller
 {
+    /**
+     * Instantiate a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('permission:create role')->only('create', 'store');
+        $this->middleware('permission:edit role')->only('edit', 'update');
+        $this->middleware('permission:show role')->only('show', 'index');
+        $this->middleware('permission:delete role')->only('delete');
+    }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +30,8 @@ class RoleController extends Controller
      */
     public function index()
     {
-        dd(Role::all());
+        $roles = Role::all();
+        return view('back.roles.index', compact('roles'));
     }
 
     /**
@@ -25,7 +41,7 @@ class RoleController extends Controller
      */
     public function create()
     {
-        //
+        return view('back.roles.create');
     }
 
     /**
@@ -36,7 +52,15 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate(['name' => 'required|unique:Spatie\Permission\Models\Role,name']);
+        Role::create($validated);
+
+        $notification = array(
+            'message' => __('Role created.'),
+            'alert-type' => 'success',
+            'type' => 'toast',
+        );
+        return redirect()->route('roles.index')->with($notification);
     }
 
     /**
@@ -58,7 +82,8 @@ class RoleController extends Controller
      */
     public function edit(Role $role)
     {
-        //
+        $permissions = Permission::all();
+        return view('back.roles.edit', compact('role', 'permissions'));
     }
 
     /**
@@ -70,7 +95,15 @@ class RoleController extends Controller
      */
     public function update(Request $request, Role $role)
     {
-        //
+        $validated = $request->validate(['name' => ['required', 'min:3']]);
+        $role->update($validated);
+
+        $notification = array(
+            'message' => __('Role Updated successfully.'),
+            'alert-type' => 'success',
+            'type' => 'toast',
+        );
+        return redirect()->route('roles.index')->with($notification);
     }
 
     /**
@@ -81,6 +114,56 @@ class RoleController extends Controller
      */
     public function destroy(Role $role)
     {
-        //
+        $role->delete();
+
+        $notification = array(
+            'message' => __('Role deleted.'),
+            'alert-type' => 'success',
+            'type' => 'toast',
+        );
+        return redirect()->route('roles.index')->with($notification);
+    }
+
+    public function givePermission(Request $request, Role $role)
+    {
+        if ($role->hasPermissionTo($request->permission)){
+        // if ($role->hasAllPermissions($request->permissions)){
+            $notification = array(
+                'message' => __('Permission exists.'),
+                'alert-type' => 'info',
+                'type' => 'toast',
+            );
+            return back()->with($notification);
+        }
+
+        $role->givePermissionTo($request->permission);
+        // $role->syncPermissions($request->permissions);
+
+        $notification = array(
+                'message' => __('Permission added.'),
+                'alert-type' => 'info',
+                'type' => 'toast',
+            );
+        return back()->with($notification);
+    }
+
+    public function revokePermission(Role $role, Permission $permission)
+    {
+        if ($role->hasPermissionTo($permission)){
+            $role->revokePermissionTo($permission);
+            $notification = array(
+                'message' => __('Permission revoked.'),
+                'alert-type' => 'info',
+                'type' => 'toast',
+            );
+            return back()->with($notification);
+        }
+
+        $notification = array(
+                'message' => __('Permission not exists.'),
+                'alert-type' => 'info',
+                'type' => 'toast',
+        );
+        return back()->with($notification);
     }
 }

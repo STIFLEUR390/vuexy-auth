@@ -778,8 +778,18 @@
     "Create a permission": "Créer une permission",
     "Permission created.": "Permission Créer",
     "Edit permission": "Editer la permission",
-    "Permission updated.": "Permision mis à jour.",
+    "Permission updated.": "Permission mise à jour.",
     "Role not exists.": "Le role n'existe pas.",
     "Role removed.": "Role retirer.",
-    "Role exists.": "Le role exist."
+    "Role exists.": "Le role exist.",
+    "role deleted.": "Role supprimer.",
+    "Role a permission": "Créer un role",
+    "Role created.": "Role Créer",
+    "Edit role": "Editer le role",
+    "Role updated.": "Role mis à jour.",
+    "Permission not exists.": "La permission n'existe pas.",
+    "Permission revoked..": "Permission revoker",
+    "Permission exists.": "La permission exist.",
+    "Permission added.": "Permission ajouter.",
+    "Role assigned.": "Role assigner."
 }
