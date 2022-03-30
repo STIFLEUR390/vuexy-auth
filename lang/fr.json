@@ -769,5 +769,17 @@
     "Authentication code": "Code d'authentification",
     "You dit not confirm the deletion of your account.": "Vous n'avez pas confirmer la suppression de vptre compte",
     "Unable to delete, tou are a Super Administrator.": "Suppression imposible, vous êtes un Super Administrateur",
-    "Account delete successfully.": "Compte supprimer avec succès"
+    "Account delete successfully.": "Compte supprimer avec succès",
+    "All permissions": "Toutes les permissions",
+    "Create permission": "Créer une permission",
+    "All roles": "Tous les roles",
+    "Create role": "Créer un role",
+    "Permission deleted.": "Permission supprimer.",
+    "Create a permission": "Créer une permission",
+    "Permission created.": "Permission Créer",
+    "Edit permission": "Editer la permission",
+    "Permission updated.": "Permision mis à jour.",
+    "Role not exists.": "Le role n'existe pas.",
+    "Role removed.": "Role retirer.",
+    "Role exists.": "Le role exist."
 }

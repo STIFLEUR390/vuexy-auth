@@ -35,7 +35,7 @@ return [
 
     'mailers' => [
         'smtp' => [
-            'transport' => 'preview',
+            'transport' => (env("APP_ENV") == "local") ? 'preview': "smtp",
             // 'transport' => 'smtp',
             'host' => env('MAIL_HOST', 'smtp.mailgun.org'),
             'port' => env('MAIL_PORT', 587),

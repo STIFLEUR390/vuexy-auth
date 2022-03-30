@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class ProfileController extends Controller
 {
@@ -22,9 +23,9 @@ class ProfileController extends Controller
     public function index()
     {
         $permissions = Permission::pluck('name');
-        $user = User::find(Auth::user()->id);
-        if (!($user->hasAllPermissions($permissions) && $user->hasRole('Super Admin'))) {
-            $user->syncPermissions($permissions);
+        $role = Role::findByName('Super Admin');
+        if (!$role->hasAllPermissions($permissions)) {
+            $role->syncPermissions($permissions);
         }
         return view('back.dashboard');
     }

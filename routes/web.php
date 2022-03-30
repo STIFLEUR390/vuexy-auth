@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\Permission\PermissionController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\Role\RoleController;
 use App\Http\Controllers\LanguageController;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,6 +20,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
+
+Route::get('artisan', function () {
+    Artisan::call('storage:link');
+    Artisan::call('migrate');
+    Artisan::call('db:seed');
+    echo "Artisan done";
+});
 
 Route::mailPreview(); // to preview email
 // to change language
@@ -39,6 +47,10 @@ Route::prefix('admin')->middleware(['auth', 'verified'])->controller(ProfileCont
     });
 
     //Role and permission
-    Route::resource('roles', RoleController::class)->except('show');
-    Route::resource('permissions', PermissionController::class)->except('show');
+    Route::resources([
+        'roles' => RoleController::class,
+        'permissions' => PermissionController::class,
+    ], ['except' => 'show']);
+    Route::post('/permissions/{permission}/roles', [PermissionController::class, 'assignRole'])->name('permissions.roles');
+    Route::delete('/permissions/{permission}/roles/{role}', [PermissionController::class, 'removeRole'])->name('permission.roleRemove');
 });

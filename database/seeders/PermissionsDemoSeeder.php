@@ -28,6 +28,14 @@ class PermissionsDemoSeeder extends Seeder
         Permission::create(['name' => 'update password']);
         Permission::create(['name' => 'delete account']);
         Permission::create(['name' => 'base']);
+        Permission::create(['name' => 'create permission']);
+        Permission::create(['name' => 'edit permission']);
+        Permission::create(['name' => 'show permssion']);
+        Permission::create(['name' => 'delete permission']);
+        Permission::create(['name' => 'create role']);
+        Permission::create(['name' => 'edit role']);
+        Permission::create(['name' => 'show role']);
+        Permission::create(['name' => 'delete role']);
 
         // create roles and assign existing permissions
         $role1 = Role::create(['name' => 'User']);

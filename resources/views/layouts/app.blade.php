@@ -22,6 +22,10 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('admin/app-assets/vendors/css/extensions/toastr.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('admin/app-assets/vendors/css/animate/animate.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('admin/app-assets/vendors/css/extensions/sweetalert2.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('admin/app-assets/vendors/css/tables/datatable/dataTables.bootstrap5.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('admin/app-assets/vendors/css/tables/datatable/responsive.bootstrap5.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('admin/app-assets/vendors/css/tables/datatable/buttons.bootstrap5.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('admin/app-assets/vendors/css/forms/select/select2.min.css') }}">
     @yield('styles')
 
     <!-- END: Vendor CSS-->
@@ -45,6 +49,11 @@
     <!-- BEGIN: Custom CSS-->
     @yield('style-custom')
     <link rel="stylesheet" type="text/css" href="{{ asset('admin/assets/css/style.css') }}">
+    <style>
+        .invalid-feedback{
+            display: block !important;
+        }
+    </style>
     <!-- END: Custom CSS-->
 
 </head>
@@ -109,6 +118,13 @@
     <script src="{{ asset('admin/app-assets/vendors/js/extensions/toastr.min.js') }}"></script>
     <script src="{{ asset('admin/app-assets/vendors/js/extensions/sweetalert2.all.min.js') }}"></script>
     <script src="{{ asset('admin/app-assets/vendors/js/extensions/polyfill.min.js') }}"></script>
+    <script src="{{ asset('admin/app-assets/vendors/js/tables/datatable/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('admin/app-assets/vendors/js/tables/datatable/dataTables.bootstrap5.min.js') }}"></script>
+    <script src="{{ asset('admin/app-assets/vendors/js/tables/datatable/dataTables.responsive.min.js') }}"></script>
+    <script src="{{ asset('admin/app-assets/vendors/js/tables/datatable/responsive.bootstrap5.js') }}"></script>
+    <script src="{{ asset('admin/app-assets/vendors/js/tables/datatable/datatables.buttons.min.js') }}"></script>
+    <script src="{{ asset('admin/app-assets/vendors/js/tables/datatable/buttons.bootstrap5.min.js') }}"></script>
+    <script src="{{ asset('admin/app-assets/vendors/js/forms/select/select2.full.min.js') }}"></script>
     <!-- END: Page Vendor JS-->
 
     <!-- BEGIN: Theme JS-->
@@ -167,40 +183,51 @@
 
     <script>
         $(function() {
-            $(".deleteElement").on('click', function(e) {
-                e.preventDefault();
+            var $confirmColor = $(".deleteElement");
+            if ($confirmColor.length) {
+                $confirmColor.on('click', function(e) {
+                    e.preventDefault();
 
-                Swal.fire({
-                    title: '{{ __(env("APP_NAME")) }}',
-                    text: '{{ Session::get("message") }}',
-                    icon: "warning",
-                    showCancelButton: !0,
-                    confirmButtonText: "{{ __('Yes, delete it!') }}",
-                    customClass: {
-                        confirmButton: "btn btn-primary",
-                        cancelButton: "btn btn-outline-danger ms-1",
-                    },
-                    buttonsStyling: !1,
-                }).then(function (t) {
-                    t.value
-                        ? /* Swal.fire({
-                            icon: "success",
-                            title: "Deleted!",
-                            text: "{{ __('Your data has been deleted.') }}",
-                            customClass: { confirmButton: "btn btn-success" }, */
-                            this.prev().closest('form').submit(),
-                    })
-                    : t.dismiss === Swal.DismissReason.cancel &&
-                        Swal.fire({
-                            title: "Cancelled",
-                            text: "{{ __('Your data is safe :)') }}",
-                            icon: "error",
-                            customClass: { confirmButton: "btn btn-success" },
-                        });
-                });
-            })
+                    // console.log(e.currentTarget.attributes.id.nodeValue);
+
+                    Swal.fire({
+                        title: '{{ __(env("APP_NAME")) }}',
+                        text: '{{ Session::get("message") }}',
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonText: "{{ __('Yes, delete it!') }}",
+                        customClass: {
+                            confirmButton: 'btn btn-primary',
+                            cancelButton: 'btn btn-outline-danger ms-1'
+                        },
+                        buttonsStyling: false
+                    }).then(function (result) {
+                        if (result.value) {
+                            /* Swal.fire({
+                                icon: 'success',
+                                title: 'Deleted!',
+                                text: 'Your file has been deleted.',
+                                customClass: {
+                                    confirmButton: 'btn btn-success'
+                                }
+                            }); */
+                            $("#"+e.currentTarget.attributes.id.nodeValue).closest('form').submit();
+                        } else if (result.dismiss === Swal.DismissReason.cancel) {
+                            Swal.fire({
+                                title: "Cancelled",
+                                text: "{{ __('Your data is safe :)') }}",
+                                icon: 'error',
+                                customClass: {
+                                    confirmButton: 'btn btn-success'
+                                }
+                            });
+                        }
+                    });
+                })
+            }
         })
     </script>
+
     //sweet-alert notification
     <script>
         @if (Session::has('message') && Session::get('type') == 'sweet')
@@ -269,6 +296,108 @@
                 }
             })
         @endif
+    </script>
+
+    //Datatable
+    <script>
+        @if (config('app.locale')== 'fr')
+            $(function () {
+                'use strict';
+                var dt_basic_table = $('.datatables-basic'),
+                dt_filter_table = $('.dt-column-search');
+
+                if(dt_basic_table.length){
+                    dt_basic_table.DataTable({
+                        dom: '<"d-flex justify-content-between align-items-center mx-0 row"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6"f>>t<"d-flex justify-content-between mx-0 row"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6"p>>',
+                        orderCellsTop: true,
+                        language: {
+                            url: "/datatable/fr-FR.json"
+                        }
+                    })
+                }
+
+                if (dt_filter_table.length) {
+                    // Setup - add a text input to each footer cell
+                    $('.dt-column-search thead tr').clone(true).appendTo('.dt-column-search thead');
+                    $('.dt-column-search thead tr:eq(1) th').each(function (i) {
+                    var title = $(this).text();
+                    $(this).html('<input type="text" class="form-control form-control-sm" placeholder="Search ' + title + '" />');
+
+                    $('input', this).on('keyup change', function () {
+                        if (dt_filter.column(i).search() !== this.value) {
+                        dt_filter.column(i).search(this.value).draw();
+                        }
+                    });
+                    });
+
+                    var dt_filter = dt_filter_table.DataTable({
+                        dom: '<"d-flex justify-content-between align-items-center mx-0 row"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6"f>>t<"d-flex justify-content-between mx-0 row"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6"p>>',
+                        orderCellsTop: true,
+                        language: {
+                            url: "/datatable/fr-FR.json"
+                        }
+                    });
+                }
+            })
+        @else
+            $(function () {
+                'use strict';
+                var dt_basic_table = $('.datatables-basic'),
+                dt_filter_table = $('.dt-column-search');
+
+                if(dt_basic_table.length){
+                    dt_basic_table.DataTable({
+                        dom: '<"d-flex justify-content-between align-items-center mx-0 row"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6"f>>t<"d-flex justify-content-between mx-0 row"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6"p>>',
+                        orderCellsTop: true,
+                        language: {
+                            url: "/datatable/en-GB.json"
+                        }
+                    })
+                }
+
+                if (dt_filter_table.length) {
+                    // Setup - add a text input to each footer cell
+                    $('.dt-column-search thead tr').clone(true).appendTo('.dt-column-search thead');
+                    $('.dt-column-search thead tr:eq(1) th').each(function (i) {
+                    var title = $(this).text();
+                    $(this).html('<input type="text" class="form-control form-control-sm" placeholder="Search ' + title + '" />');
+
+                    $('input', this).on('keyup change', function () {
+                        if (dt_filter.column(i).search() !== this.value) {
+                        dt_filter.column(i).search(this.value).draw();
+                        }
+                    });
+                    });
+
+                    var dt_filter = dt_filter_table.DataTable({
+                        dom: '<"d-flex justify-content-between align-items-center mx-0 row"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6"f>>t<"d-flex justify-content-between mx-0 row"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6"p>>',
+                        orderCellsTop: true,
+                        language: {
+                            url: "/datatable/en-GB.json"
+                        }
+                    });
+                }
+            })
+        @endif
+    </script>
+
+    //Select2
+    <script>
+        (function (window, document, $) {
+            'use strict';
+
+            $('.select2').each(function () {
+                var $this = $(this);
+                $this.wrap('<div class="position-relative"></div>');
+                $this.select2({
+                // the following code is used to disable x-scrollbar when click in select input and
+                // take 100% width in responsive also
+                dropdownAutoWidth: true,
+                width: '100%',
+                dropdownParent: $this.parent()
+                });
+            });
+        })(window, document, jQuery);
     </script>
     @yield('script-custom')
     <!-- END: Page JS-->
