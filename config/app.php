@@ -171,6 +171,8 @@ return [
          */
         App\Providers\FortifyServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
+        Spatie\Backup\BackupServiceProvider::class,
+        App\Providers\Admin\DropboxServiceProvider::class,
         /*
          * Application Service Providers...
          */

@@ -33,3 +33,11 @@ Route::mailPreview();
 Artisan::call(CommandThatSendsMail::class);
 
 Spatie\MailPreview\Facades\SentMails::assertLastContains('something in your mail');
+
+
+
+
+
+
+
+php artisan clear-compiled && php artisan ide-helper:generate && php artisan ide-helper:models --nowrite

@@ -115,8 +115,13 @@ return [
             /*
              * The disk names on which the backups will be stored.
              */
+            /* 'disks' => [
+                'local',
+            ], */
             'disks' => [
                 'local',
+                env('DROPBOX_BACKUP_ACTIVE', false)? 'dropbox' : '' ,
+                // 'dropbox',
             ],
         ],
 
@@ -166,7 +171,7 @@ return [
         'notifiable' => \Spatie\Backup\Notifications\Notifiable::class,
 
         'mail' => [
-            'to' => 'your@example.com',
+            'to' => env('MAIL_TO_ADDRESS_BACKUP', 'heroldtamko39@gmail.com'),
 
             'from' => [
                 'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
